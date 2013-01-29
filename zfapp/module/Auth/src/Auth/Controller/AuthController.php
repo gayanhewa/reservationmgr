@@ -6,23 +6,24 @@ use Zend\View\Model\ViewModel;
 
 class AuthController extends AbstractActionController
 {
+    protected $authTable;
+
     public function indexAction()
     {
-        die('eee');
+        return new ViewModel(array(
+            'auth' => $this->getAuthTable()->fetchAll(),
+            'a'=>'aaaa'
+        ));
     }
 
-    public function addAction()
+    public function getAuthTable()
     {
-        die('add');
+        if (!$this->authTable) {
+            $sm = $this->getServiceLocator();
+            $this->authTable = $sm->get('Auth\Model\AuthTable');
+
+        }
+        return $this->authTable;
     }
 
-    public function editAction()
-    {
-        die('edit');
-    }
-
-    public function deleteAction()
-    {
-        die('delete');
-    }
 }
