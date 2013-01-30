@@ -71,4 +71,12 @@ class AuthController extends AbstractActionController
         }
         die('success');
     }
+
+    public function logoutAction(){
+        $auth = new AuthenticationService();
+        if($auth->hasIdentity()){
+            $auth->clearIdentity();
+        }
+        die('logout successful');
+    }
 }
