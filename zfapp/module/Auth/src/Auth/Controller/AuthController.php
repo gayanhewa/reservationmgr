@@ -2,8 +2,8 @@
 namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
+use Zend\Authentication\Result;
 
 class AuthController extends AbstractActionController
 {
@@ -11,10 +11,7 @@ class AuthController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel(array(
-            'auth' => $this->getAuthTable()->fetchAll(),
-            'a'=>'aaaa'
-        ));
+
     }
 
     public function getAuthTable()
@@ -35,8 +32,29 @@ class AuthController extends AbstractActionController
         $authAdapter->setCredential($request->getPost('password'));
 
         $result = $authAdapter->authenticate();
-        var_dump($result);
+
+        switch ($result->getCode()) {
+
+            case Result::FAILURE_IDENTITY_NOT_FOUND:
+                return $this->redirect()->toRoute('auth',array('action'=>'index'));
+                break;
+
+            case Result::FAILURE_CREDENTIAL_INVALID:
+                return $this->redirect()->toRoute('auth',array('action'=>'index'));
+                break;
+
+            case Result::SUCCESS:
+                 return $this->redirect()->toRoute('auth',array('action'=>'success'));
+                break;
+
+            default:
+                /** do stuff for other failure **/
+                break;
+        }
 
     }
 
+    public function successAction(){
+        die('success');
+    }
 }
