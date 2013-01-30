@@ -4,6 +4,8 @@ namespace Auth\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\Authentication\Result;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
 
 class AuthController extends AbstractActionController
 {
@@ -25,6 +27,7 @@ class AuthController extends AbstractActionController
     }
 
     public function loginAction(){
+        $auth = new AuthenticationService();
         $request = $this->getRequest();
         $dbAdapter = $this->getAuthTable()->getAdapter();
         $authAdapter = new AuthAdapter($dbAdapter,'auth','username','password','sha1(?)');
@@ -44,6 +47,13 @@ class AuthController extends AbstractActionController
                 break;
 
             case Result::SUCCESS:
+                 if($result->isValid()){
+                     $storage = $auth->getStorage();
+                        $storage->write($authAdapter->getResultRowObject(array(
+                            'username',
+                            'lastlogin',
+                        )));
+                 }
                  return $this->redirect()->toRoute('auth',array('action'=>'success'));
                 break;
 
@@ -55,6 +65,10 @@ class AuthController extends AbstractActionController
     }
 
     public function successAction(){
+        $auth = new AuthenticationService();
+        if($auth->hasIdentity()){
+            var_dump($auth->getIdentity());
+        }
         die('success');
     }
 }
