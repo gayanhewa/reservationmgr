@@ -13,7 +13,11 @@ class AuthController extends AbstractActionController
 
     public function indexAction()
     {
-
+        $auth = new AuthenticationService();
+        //alerady loggedin
+        if($auth->hasIdentity()){
+            return $this->redirect()->toRoute('auth',array('action'=>'success'));
+        }
     }
 
     public function getAuthTable()
