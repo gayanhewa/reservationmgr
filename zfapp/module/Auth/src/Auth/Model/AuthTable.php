@@ -52,5 +52,8 @@ class AuthTable
 //    {
 //        $this->tableGateway->delete(array('id' => $id));
 //    }
-    
+
+    public function getAdapter(){
+        return $this->tableGateway->getAdapter();
+    }
 }
