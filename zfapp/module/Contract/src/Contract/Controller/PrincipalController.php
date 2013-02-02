@@ -17,7 +17,7 @@ class PrincipalController extends AbstractActionController
     public function addAction()
     {
         $form = new PrincipalForm();
-        
+
         $form->get('submit')->setValue('Add');
 
         $request = $this->getRequest();

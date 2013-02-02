@@ -25,4 +25,9 @@ return array(
                     => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
     ),
+    'module_layouts' => array(
+            'Auth' => 'layout/auth',
+            'Contract' => 'layout/contract',
+        ),
+
 );
