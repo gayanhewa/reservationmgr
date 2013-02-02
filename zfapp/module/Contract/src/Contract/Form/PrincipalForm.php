@@ -15,6 +15,7 @@ class PrincipalForm extends Form
             'name' => 'name',
             'attributes' => array(
                 'type'  => 'text',
+                'class'=>'input-xlarge'
             ),
             'options' => array(
                 'label' => 'Title',
@@ -24,15 +25,20 @@ class PrincipalForm extends Form
             'name' => 'tel',
             'attributes' => array(
                 'type'  => 'text',
+                'class'=>'input-xlarge'
             ),
             'options' => array(
                 'label' => 'Telephone',
+                'label_attributes'=>array(
+                    'class'=>'control-label'
+                ),
             ),
         ));
         $this->add(array(
             'name' => 'fax',
             'attributes' => array(
                 'type'  => 'text',
+                'class'=>'input-xlarge'
             ),
             'options' => array(
                 'label' => 'Fax',
@@ -41,7 +47,8 @@ class PrincipalForm extends Form
         $this->add(array(
             'name' => 'email',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'email',
+                'class'=>'input-xlarge'
             ),
             'options' => array(
                 'label' => 'Email',
@@ -51,6 +58,7 @@ class PrincipalForm extends Form
             'name' => 'website',
             'attributes' => array(
                 'type'  => 'text',
+                'class'=>'input-xlarge'
             ),
             'options' => array(
                 'label' => 'Website',
@@ -60,6 +68,7 @@ class PrincipalForm extends Form
             'name' => 'address',
             'attributes' => array(
                 'type'  => 'textarea',
+                'class'=>'cleditor',
             ),
             'options' => array(
                 'label' => 'Address',
@@ -74,11 +83,7 @@ class PrincipalForm extends Form
                 'id' => 'submitbutton',
                 'class' => 'btn btn-primary'
             ),
-            'options' => array(
-                'bootstrap' => array(
-                    'style' => 'inline',
-             ),
-        )));
+        ));
     }
 }
 ?>
