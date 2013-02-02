@@ -4,14 +4,33 @@ namespace Contract\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Zend\Authentication\Adapter\DbTable as AuthAdapter;
+use Zend\Authentication\Result;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
+
 use Contract\Model\Principal;
+use Contract\Model\PrincipalTable;
 use Contract\Form\PrincipalForm;
 
 class PrincipalController extends AbstractActionController
 {
+    protected $principalTable;
+
+    public function getPrincipalTable()
+    {
+        if (!$this->principalTable) {
+            $sm = $this->getServiceLocator();
+            $this->principalTable = $sm->get('Contract\Model\PrincipalTable');
+        }
+
+        return $this->principalTable;
+    }
     public function indexAction()
     {
-        die('ee1e');
+
+        return new ViewModel(array('list'=>$this->getPrincipalTable()->fetchAll()));
+
     }
 
     public function addAction()
@@ -27,23 +46,76 @@ class PrincipalController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+
                 $principal->exchangeArray($form->getData());
+
                 $this->getPrincipalTable()->savePrincipal($principal);
 
                 // Redirect to list of principals
                 return $this->redirect()->toRoute('principal');
             }
+
         }
         return array('form' => $form);
     }
 
     public function editAction()
     {
-        die('edit');
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('principal', array(
+                'action' => 'add'
+            ));
+        }
+
+        $principal = $this->getPrincipalTable()->getPrincipal($id);
+
+        $form  = new PrincipalForm();
+        $form->bind($principal);
+        $form->get('submit')->setAttribute('value', 'Edit');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setInputFilter($principal->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->getPrincipalTable()->savePrincipal($form->getData());
+
+                // Redirect to list of principals
+                return $this->redirect()->toRoute('principal');
+            }
+        }
+
+        return array(
+            'id' => $id,
+            'form' => $form,
+        );
     }
 
     public function deleteAction()
     {
-        die('delete');
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('principal');
+        }
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $del = $request->getPost('del', 'No');
+
+            if ($del == 'Yes') {
+                $id = (int) $request->getPost('id');
+                $this->getPrincipalTable()->deletePrincipal($id);
+            }
+
+            // Redirect to list of principals
+            return $this->redirect()->toRoute('principal');
+        }
+
+        return array(
+            'id'    => $id,
+            'principal' => $this->getPrincipalTable()->getPrincipal($id)
+        );
     }
 }

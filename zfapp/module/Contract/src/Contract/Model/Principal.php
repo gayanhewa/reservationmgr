@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Principal implements InputFilterAwareInterface
 {
-    public $id;
+    public $id = 0;
     public $name;
     public $tel;
     public $address;
@@ -18,7 +18,7 @@ class Principal implements InputFilterAwareInterface
 
     public function exchangeArray($data)
     {
-        $this->id     = (isset($data['id'])) ? $data['id'] : null;
+        $this->id     = (isset($data['id'])) ? $data['id'] : 0;
         $this->name     = (isset($data['name'])) ? $data['name'] : null;
         $this->tel     = (isset($data['tel'])) ? $data['tel'] : null;
         $this->address     = (isset($data['address'])) ? $data['address'] : null;
@@ -38,31 +38,37 @@ class Principal implements InputFilterAwareInterface
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
-            $factory     = new InputFactory();
+//            $factory     = new InputFactory();
 
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'name',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 100,
-                        ),
-                    ),
-                ),
-            )));
+//            $inputFilter->add($factory->createInput(array(
+//                'name'     => 'name',
+//                'required' => true,
+//                'filters'  => array(
+//                    array('name' => 'StripTags'),
+//                    array('name' => 'StringTrim'),
+//                ),
+//                'validators' => array(
+//                    array(
+//                        'name'    => 'StringLength',
+//                        'options' => array(
+//                            'encoding' => 'UTF-8',
+//                            'min'      => 1,
+//                            'max'      => 100,
+//                        ),
+//                    ),
+//                ),
+//            )));
 
             $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;
+    }
+
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
     }
 
 }

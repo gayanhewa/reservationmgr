@@ -1,5 +1,5 @@
 <?php
-namespace Principal\Model;
+namespace Contract\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
@@ -41,6 +41,7 @@ class PrincipalTable
         );
 
         $id = (int)$principal->id;
+
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {

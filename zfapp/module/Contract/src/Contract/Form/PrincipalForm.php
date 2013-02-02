@@ -12,6 +12,12 @@ class PrincipalForm extends Form
         $this->setAttribute('method', 'post');
 
         $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+        $this->add(array(
             'name' => 'name',
             'attributes' => array(
                 'type'  => 'text',

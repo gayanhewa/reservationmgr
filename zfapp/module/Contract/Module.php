@@ -1,6 +1,11 @@
 <?php
 namespace Contract;
 
+use Contract\Model\Principal;
+use Contract\Model\PrincipalTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+
 class Module
 {
     public function getAutoloaderConfig()
@@ -27,7 +32,7 @@ class Module
     {
         return array(
             'factories' => array(
-                'Principal\Model\PrincipalTable' =>  function($sm) {
+                'Contract\Model\PrincipalTable' =>  function($sm) {
                     $tableGateway = $sm->get('PrincipalTableGateway');
                     $table = new PrincipalTable($tableGateway);
                     return $table;
