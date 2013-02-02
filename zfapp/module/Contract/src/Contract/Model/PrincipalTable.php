@@ -29,14 +29,18 @@ class PrincipalTable
         return $row;
     }
 
-    public function savePrincipal(Principal $album)
+    public function savePrincipal(Principal $principal)
     {
         $data = array(
-            'artist' => $album->artist,
-            'title'  => $album->title,
+            'name' => $principal->name,
+            'tel'  => $principal->tel,
+            'fax'  => $principal->fax,
+            'address'  => $principal->address,
+            'email'  => $principal->email,
+            'website'  => $principal->website
         );
 
-        $id = (int)$album->id;
+        $id = (int)$principal->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
@@ -53,7 +57,8 @@ class PrincipalTable
         $this->tableGateway->delete(array('id' => $id));
     }
 
-    public function getAdapter(){
+    public function getAdapter()
+    {
         return $this->tableGateway->getAdapter();
     }
 }

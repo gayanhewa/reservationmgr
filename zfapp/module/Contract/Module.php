@@ -27,16 +27,16 @@ class Module
     {
         return array(
             'factories' => array(
-                'Auth\Model\AuthTable' =>  function($sm) {
-                    $tableGateway = $sm->get('AuthTableGateway');
-                    $table = new AuthTable($tableGateway);
+                'Principal\Model\PrincipalTable' =>  function($sm) {
+                    $tableGateway = $sm->get('PrincipalTableGateway');
+                    $table = new PrincipalTable($tableGateway);
                     return $table;
                 },
-                'AuthTableGateway' => function ($sm) {
+                'PrincipalTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Auth());
-                    return new TableGateway('auth', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Principal());
+                    return new TableGateway('principal', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
