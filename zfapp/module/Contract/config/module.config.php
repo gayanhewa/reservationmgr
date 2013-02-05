@@ -37,6 +37,19 @@ return array(
                     ),
                 ),
             ),
+            'paginator' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/list/index/[page/:page]',
+                    'defaults' => array(
+                        'page' => 1,
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Contract\Controller\Principal',
+                        'action'     => 'index',
+                    ),
+                ),
+        ),
         ),
     ),
 

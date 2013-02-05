@@ -1,24 +1,25 @@
 <?php
+
 namespace Contract\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\Authentication\Result;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Storage\Session as SessionStorage;
-
 use Contract\Model\Principal;
 use Contract\Model\PrincipalTable;
 use Contract\Form\PrincipalForm;
+use Zend\Paginator\Adapter\Iterator;
+use Zend\Paginator\Paginator;
+use Zend\View\Helper\PaginationControl;
 
-class PrincipalController extends AbstractActionController
-{
+class PrincipalController extends AbstractActionController {
+
     protected $principalTable;
 
-    public function getPrincipalTable()
-    {
+    public function getPrincipalTable() {
         if (!$this->principalTable) {
             $sm = $this->getServiceLocator();
             $this->principalTable = $sm->get('Contract\Model\PrincipalTable');
@@ -26,15 +27,26 @@ class PrincipalController extends AbstractActionController
 
         return $this->principalTable;
     }
-    public function indexAction()
-    {
 
-        return new ViewModel(array('list'=>$this->getPrincipalTable()->fetchAll()));
+    public function indexAction() {
 
+        //$page =(int) $this->params()->fromRoute('page', 1);
+
+        $iteratorAdapter = new \Zend\Paginator\Adapter\Iterator($this->getPrincipalTable()->fetchAll());
+        $paginator = new \Zend\Paginator\Paginator($iteratorAdapter);
+
+        $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
+        $paginator->setItemCountPerPage(1);
+
+        return new ViewModel(array(
+                    'list' => $paginator
+//                    'lang' => $matches->getParam('lang', 'en')
+                ));
+
+        //return new ViewModel(array('list' => $this->getPrincipalTable()->fetchAll()));
     }
 
-    public function addAction()
-    {
+    public function addAction() {
         $form = new PrincipalForm();
 
         $form->get('submit')->setValue('Add');
@@ -54,23 +66,21 @@ class PrincipalController extends AbstractActionController
                 // Redirect to list of principals
                 return $this->redirect()->toRoute('principal');
             }
-
         }
         return array('form' => $form);
     }
 
-    public function editAction()
-    {
+    public function editAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('principal', array(
-                'action' => 'add'
-            ));
+                        'action' => 'add'
+                    ));
         }
 
         $principal = $this->getPrincipalTable()->getPrincipal($id);
 
-        $form  = new PrincipalForm();
+        $form = new PrincipalForm();
         $form->bind($principal);
         $form->get('submit')->setAttribute('value', 'Edit');
 
@@ -93,8 +103,7 @@ class PrincipalController extends AbstractActionController
         );
     }
 
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('principal');
@@ -114,8 +123,9 @@ class PrincipalController extends AbstractActionController
         }
 
         return array(
-            'id'    => $id,
+            'id' => $id,
             'principal' => $this->getPrincipalTable()->getPrincipal($id)
         );
     }
+
 }
