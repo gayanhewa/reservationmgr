@@ -20,6 +20,7 @@ class PrincipalController extends AbstractActionController {
     protected $principalTable;
 
     public function getPrincipalTable() {
+
         if (!$this->principalTable) {
             $sm = $this->getServiceLocator();
             $this->principalTable = $sm->get('Contract\Model\PrincipalTable');
@@ -30,23 +31,19 @@ class PrincipalController extends AbstractActionController {
 
     public function indexAction() {
 
-        //$page =(int) $this->params()->fromRoute('page', 1);
-
         $iteratorAdapter = new \Zend\Paginator\Adapter\Iterator($this->getPrincipalTable()->fetchAll());
         $paginator = new \Zend\Paginator\Paginator($iteratorAdapter);
 
         $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-        $paginator->setItemCountPerPage(1);
+        $paginator->setItemCountPerPage(25);
 
         return new ViewModel(array(
                     'list' => $paginator
-//                    'lang' => $matches->getParam('lang', 'en')
                 ));
-
-        //return new ViewModel(array('list' => $this->getPrincipalTable()->fetchAll()));
     }
 
     public function addAction() {
+
         $form = new PrincipalForm();
 
         $form->get('submit')->setValue('Add');
@@ -71,6 +68,7 @@ class PrincipalController extends AbstractActionController {
     }
 
     public function editAction() {
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('principal', array(
@@ -104,6 +102,7 @@ class PrincipalController extends AbstractActionController {
     }
 
     public function deleteAction() {
+        
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('principal');
