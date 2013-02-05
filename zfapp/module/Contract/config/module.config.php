@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'Contract\Controller\Contract' => 'Contract\Controller\ContractController',
              'Contract\Controller\Principal' => 'Contract\Controller\PrincipalController',
+            'Contract\Controller\Resort' => 'Contract\Controller\ResortController',
         ),
     ),
 
@@ -33,6 +34,20 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'Contract\Controller\Principal',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'resort' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/resort[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Contract\Controller\Resort',
                         'action'     => 'index',
                     ),
                 ),

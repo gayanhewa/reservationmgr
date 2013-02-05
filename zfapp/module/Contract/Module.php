@@ -3,6 +3,8 @@ namespace Contract;
 
 use Contract\Model\Principal;
 use Contract\Model\PrincipalTable;
+use Contract\Model\Resort;
+use Contract\Model\ResortTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -42,6 +44,17 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Principal());
                     return new TableGateway('principal', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Contract\Model\ResortTable' =>  function($sm) {
+                    $tableGateway = $sm->get('ResortTableGateway');
+                    $table = new ResortTable($tableGateway);
+                    return $table;
+                },
+                'ResortTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Resort());
+                    return new TableGateway('resort', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
