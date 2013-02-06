@@ -65,4 +65,15 @@ class PrincipalTable
     {
         return $this->tableGateway->getAdapter();
     }
+
+    public function getMapper()
+    {
+        $mapper = array();
+        foreach($this->fetchAll() as $row)
+        {
+            $mapper[$row->id] = $row->name;
+        }
+
+        return $mapper;
+    }
 }

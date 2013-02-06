@@ -5,7 +5,7 @@
             <a href="#">Home</a> <span class="divider">/</span>
         </li>
         <li>
-            <a href="<?php echo $this->url('principal', array('action' => 'index')); ?>">Principal List</a>
+            <a href="<?php echo $this->url('resort', array('action' => 'index')); ?>">Resort List</a>
         </li>
     </ul>
 </div>
@@ -13,9 +13,9 @@
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header well" data-original-title>
-            <h2><i class="icon-user"></i>Principal List</h2>
+            <h2><i class="icon-user"></i>Resort List</h2>
             <div style="float:right">
-                <a href="<?php echo $this->url('principal', array('action' => 'add')); ?>" class="btn btn-primary btn-round">Add</a>
+                <a href="<?php echo $this->url('resort', array('action' => 'add')); ?>" class="btn btn-primary btn-round">Add</a>
             </div>
         </div>
         <?php if (count($list)): ?>
@@ -31,28 +31,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php /* foreach ($this->list as $row): ?>
+                        <?php  foreach ($this->list as $row): ?>
                             <tr>
                                 <td><?php echo $row->name; ?></td>
                                 <td class="center"><?php echo $row->email; ?></td>
                                 <td class="center"><?php echo $row->tel; ?></td>
                                 <td class="center"><?php echo $row->fax; ?></td>
                                 <td class="center">
-                                    <a class="btn btn-success" href="<?php echo $this->url('principal', array('action' => 'edit', 'id' => $row->id)); ?>">
+                                    <a class="btn btn-success" href="<?php echo $this->url('resort', array('action' => 'edit', 'id' => $row->id)); ?>">
                                         <i class="icon-zoom-in icon-white"></i>
                                         View
                                     </a>
-                                    <a class="btn btn-info" href="<?php echo $this->url('principal', array('action' => 'edit', 'id' => $row->id)); ?>">
+                                    <a class="btn btn-info" href="<?php echo $this->url('resort', array('action' => 'edit', 'id' => $row->id)); ?>">
                                         <i class="icon-edit icon-white"></i>
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger" href="<?php echo $this->url('principal', array('action' => 'delete', 'id' => $row->id)); ?>">
+                                    <a class="btn btn-danger" href="<?php echo $this->url('resort', array('action' => 'delete', 'id' => $row->id)); ?>">
                                         <i class="icon-trash icon-white"></i>
                                         Delete
                                     </a>
                                 </td>
                             </tr>
-                        <?php endforeach; */ ?>
+                        <?php endforeach;  ?>
                     </tbody>
                 </table>
             </div>
@@ -61,4 +61,4 @@
 
 </div><!--/row-->
 
-<?php echo $this->paginationControl($list, "All", "pager.phtml",array('route' => 'paginator')); ?>
+<?php echo $this->paginationControl($list, "All", "pager.phtml",array('route' => $this->route)); ?>

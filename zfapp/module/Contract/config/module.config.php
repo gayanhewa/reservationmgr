@@ -55,14 +55,17 @@ return array(
             'paginator' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/list/index/[page/:page]',
+                    'route' => '/[:controller]/index/[page/:page]',
+                   'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
                     'defaults' => array(
                         'page' => 1,
                     ),
-                    'defaults' => array(
-                        'controller' => 'Contract\Controller\Principal',
-                        'action'     => 'index',
-                    ),
+//                    'defaults' => array(
+//                        'controller' => 'Contract\Controller\Principal',
+//                        'action'     => 'index',
+//                    ),
                 ),
         ),
         ),

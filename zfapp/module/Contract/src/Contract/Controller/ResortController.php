@@ -30,13 +30,12 @@ class ResortController extends AbstractActionController {
     }
 
     public function indexAction() {
-        var_dump($this->getResortTable());
-        die('222222');
+
         $iteratorAdapter = new \Zend\Paginator\Adapter\Iterator($this->getResortTable()->fetchAll());
         $paginator = new \Zend\Paginator\Paginator($iteratorAdapter);
 
         $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-        $paginator->setItemCountPerPage(25);
+        $paginator->setItemCountPerPage(1);
 
         return new ViewModel(array(
                     'list' => $paginator
@@ -45,7 +44,7 @@ class ResortController extends AbstractActionController {
 
     public function addAction() {
 
-        $form = new ResortForm();
+        $form = new ResortForm(null,$this->getServiceLocator());
 
         $form->get('submit')->setValue('Add');
 
@@ -79,7 +78,7 @@ class ResortController extends AbstractActionController {
 
         $resort = $this->getResortTable()->getResort($id);
 
-        $form = new ResortForm();
+        $form = new ResortForm(null,$this->getServiceLocator());
         $form->bind($resort);
         $form->get('submit')->setAttribute('value', 'Edit');
 
@@ -127,5 +126,6 @@ class ResortController extends AbstractActionController {
             'resort' => $this->getResortTable()->getResort($id)
         );
     }
+
 
 }

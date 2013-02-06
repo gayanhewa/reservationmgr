@@ -35,7 +35,7 @@ class PrincipalController extends AbstractActionController {
         $paginator = new \Zend\Paginator\Paginator($iteratorAdapter);
 
         $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-        $paginator->setItemCountPerPage(25);
+        $paginator->setItemCountPerPage(1);
 
         return new ViewModel(array(
                     'list' => $paginator
@@ -102,7 +102,7 @@ class PrincipalController extends AbstractActionController {
     }
 
     public function deleteAction() {
-        
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('principal');

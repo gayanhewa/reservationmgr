@@ -1,5 +1,5 @@
 <?php
-$title = 'Add new principal';
+$title = 'Add new resort';
 $this->headTitle($title);
 ?>
 
@@ -7,13 +7,13 @@ $this->headTitle($title);
 			<div>
 				<ul class="breadcrumb">
 					<li>
-						<a href="<?php echo $this->url('principal');?>">Home</a> <span class="divider">/</span>
+						<a href="<?php echo $this->url('resort');?>">Home</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="<?php echo $this->url('principal', array('action' => 'index'));?>">Principal List</a><span class="divider">/</span>
+						<a href="<?php echo $this->url('resort', array('action' => 'index'));?>">Resort List</a><span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#">Add Principal</a>
+						<a href="#">Add Resort</a>
 					</li>
 				</ul>
 			</div>
@@ -21,7 +21,7 @@ $this->headTitle($title);
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
-						<h2><i class="icon-edit"></i>Add Principal</h2>
+						<h2><i class="icon-edit"></i>Add Resort</h2>
 						<div class="box-icon">
 <!--							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
 							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -31,7 +31,7 @@ $this->headTitle($title);
 					<div class="box-content">
                     <?php
                     $form =  $this->form;
-                    $form->setAttribute('action', $this->url('principal', array('action' => 'add')));
+                    $form->setAttribute('action', $this->url('resort', array('action' => 'add')));
                     $form->setAttribute('method',"POST");
                     $form->prepare();
                     ?>
