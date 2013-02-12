@@ -13,7 +13,7 @@ class ResortTable
     }
 
     public function fetchAll()
-    {   
+    {
         $resultSet = $this->tableGateway->select();
         $resultSet->buffer();
         $resultSet->next();
@@ -68,5 +68,16 @@ class ResortTable
     public function getAdapter()
     {
         return $this->tableGateway->getAdapter();
+    }
+
+    public function getMapper()
+    {
+        $mapper = array();
+        foreach($this->fetchAll() as $row)
+        {
+            $mapper[$row->id] = $row->name;
+        }
+
+        return $mapper;
     }
 }

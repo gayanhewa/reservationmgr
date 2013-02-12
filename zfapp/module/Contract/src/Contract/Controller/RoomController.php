@@ -11,7 +11,7 @@ class RoomController extends AbstractActionController
         die('eee');
     }
 
-    public function addAction()
+    public function addRoomtTypeAction()
     {
         die('add');
     }

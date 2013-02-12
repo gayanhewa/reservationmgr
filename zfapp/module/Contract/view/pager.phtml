@@ -9,7 +9,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- First page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url($this->route, array('page' => $this->first)); ?>">
+  <a href="<?php echo $this->url($this->route, array('id' => $this->first)); ?>">
     First
   </a> |
 <?php else: ?>
@@ -18,7 +18,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url($this->route, array('page' => $this->previous)); ?>">
+  <a href="<?php echo $this->url($this->route, array('id' => $this->previous)); ?>">
     < Previous
   </a> |
 <?php else: ?>
@@ -26,7 +26,7 @@ of <?php echo $this->totalItemCount; ?>
 <?php endif; ?>
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url($this->route, array('page' => $this->next)); ?>">
+  <a href="<?php echo $this->url($this->route, array('id' => $this->next)); ?>">
     Next >
   </a> |
 <?php else: ?>
@@ -35,7 +35,7 @@ of <?php echo $this->totalItemCount; ?>
 
 <!-- Last page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url($this->route, array('page' => $this->last)); ?>">
+  <a href="<?php echo $this->url($this->route, array('id' => $this->last)); ?>">
     Last
   </a>
 <?php else: ?>

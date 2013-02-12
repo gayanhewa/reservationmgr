@@ -8,7 +8,7 @@ class ContractController extends AbstractActionController
 {
     public function indexAction()
     {
-        die('eee');
+       
     }
 
     public function addAction()

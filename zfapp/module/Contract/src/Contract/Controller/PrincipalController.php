@@ -34,7 +34,7 @@ class PrincipalController extends AbstractActionController {
         $iteratorAdapter = new \Zend\Paginator\Adapter\Iterator($this->getPrincipalTable()->fetchAll());
         $paginator = new \Zend\Paginator\Paginator($iteratorAdapter);
 
-        $paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
+        $paginator->setCurrentPageNumber($this->params()->fromRoute('id'));
         $paginator->setItemCountPerPage(1);
 
         return new ViewModel(array(
