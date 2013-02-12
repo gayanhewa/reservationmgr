@@ -3,8 +3,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Contract\Controller\Contract' => 'Contract\Controller\ContractController',
-             'Contract\Controller\Principal' => 'Contract\Controller\PrincipalController',
+            'Contract\Controller\Principal' => 'Contract\Controller\PrincipalController',
             'Contract\Controller\Resort' => 'Contract\Controller\ResortController',
+            'Contract\Controller\Room' => 'Contract\Controller\RoomController',
         ),
     ),
 
@@ -52,23 +53,21 @@ return array(
                     ),
                 ),
             ),
-            'paginator' => array(
-                'type' => 'segment',
+            'room' => array(
+                'type'    => 'segment',
                 'options' => array(
-                    'route' => '[controller:controller][/index]/[page/:page]',
-                   'constraints' => array(
-                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    'route'    => '/room[/:action][/:id]',
+                    'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'page' => 1,
+                        'controller' => 'Contract\Controller\Room',
+                        'action'     => 'index',
                     ),
-//                    'defaults' => array(
-//                        'controller' => 'Contract\Controller\Principal',
-//                        'action'     => 'index',
-//                    ),
                 ),
-        ),
+            ),
+
         ),
     ),
 

@@ -8,7 +8,7 @@ class RoomTypeForm extends Form {
     protected $_sm = null;
 
     public function __construct($name = null,$serviceManager = null) {
-
+        
         if ( $serviceManager != null ) {
             $this->_sm = $serviceManager;
         }

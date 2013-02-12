@@ -5,6 +5,8 @@ use Contract\Model\Principal;
 use Contract\Model\PrincipalTable;
 use Contract\Model\Resort;
 use Contract\Model\ResortTable;
+use Contract\Model\RoomType;
+use Contract\Model\RoomTypeTable;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -55,6 +57,18 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Resort());
                     return new TableGateway('resort', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Contract\Model\RoomTypeTable' =>  function($sm) {
+
+                    $tableGateway = $sm->get('RoomTypeTableGateway');
+                    $table = new RoomTypeTable($tableGateway);
+                    return $table;
+                },
+                'RoomTypeTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new RoomType());
+                    return new TableGateway('room_type', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
